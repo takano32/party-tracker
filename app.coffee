@@ -1,3 +1,5 @@
+#! /usr/bin/env coffee
+# see also http://d.hatena.ne.jp/replication/20120318/1332044327
 config = require "./config"
 express = require "express"
 coffee = require "coffee-script"
