@@ -36,7 +36,9 @@ displayTimeline = () ->
 app = express.createServer()
 
 app.use express.static(__dirname + '/public')
-app.register '.eco',require('eco')
+eco = require 'eco'
+app.register '.eco', eco
+
 app.get '/', (req,res) ->
     res.render 'index.html.eco'
 

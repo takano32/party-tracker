@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>Party Tracker</title>
+      <body>
+        <h1>Party Tracker</h1>
+        <%- @body %>
+      </body>
+  </html>
