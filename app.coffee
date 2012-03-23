@@ -5,6 +5,9 @@ config = require './config'
 express = require 'express'
 coffee = require 'coffee-script'
 
+for id, account of config.accounts
+	console.log account
+
 twitter = require 'ntwitter'
 twitter = new twitter
 	consumer_key: config.twitter['consumer_key'],
