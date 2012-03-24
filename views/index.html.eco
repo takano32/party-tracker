@@ -1,6 +1,4 @@
-<h2 onClick = "getStatuses()"> Twitter Timeline</h2>
-<ul>
-  <li>one</li>
-  <li>two</li>
+<h2> Twitter Timeline</h2>
+<ul id="timeline">
 </ul>
 

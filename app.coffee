@@ -35,8 +35,7 @@ sendStatuses = (socket) ->
 	for id, account of config.accounts
 		ids.push(id)
 		twitter.getUserTimeline({id: id}, (err, statuses) ->
-			for status in statuses
-				socket.emit('updateStatus', status)
+			socket.emit('updateStatuses', statuses)
 		)
 
 	id_strs = []
@@ -49,7 +48,7 @@ sendStatuses = (socket) ->
 	streamingStatuses = () ->
 		twitter.stream('statuses/filter', {follow: id_strs.join()}, (stream) ->
 			stream.on('data', (status) ->
-				socket.emit('updateStatus', status)
+				socket.emit('streamingUpdateStatus', status)
 			)
 		)
 
