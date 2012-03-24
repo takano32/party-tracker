@@ -13,27 +13,6 @@ twitter = new twitter
 	access_token_key: config.twitter['access_token_key'],
 	access_token_secret: config.twitter['access_token_secret'],
 
-
-ids = []
-for id, account of config.accounts
-	ids.push(id)
-
-id_strs = []
-twitter.showUser(ids, (err, users) ->
-	for user in users
-		id_strs.push(user.id_str)
-	displayTimeline()
-)
-
-displayTimeline = () ->
-	twitter.stream('statuses/filter', {follow: id_strs.join()}, (stream) ->
-		stream.on('data', (data) ->
-			name = data.user.screen_name
-			text = data.text
-			console.log "#{name}: #{text}"
-		)
-	)
-
 app = express.createServer()
 
 app.use express.static(__dirname + '/public')
@@ -41,8 +20,38 @@ eco = require 'eco'
 app.register '.eco', eco
 
 app.get '/', (req,res) ->
-    res.render 'index.html.eco'
+	res.render 'index.html.eco'
 
 app.listen process.env.PORT || 3000
-socket = require('socket.io').listen app
+io = require('socket.io').listen app
+
+io.sockets.on('connection', (socket) ->
+	console.log 'connection'
+	sendStatuses(socket)
+)
+
+sendStatuses = (socket) ->
+	ids = []
+	for id, account of config.accounts
+		ids.push(id)
+		twitter.getUserTimeline({id: id}, (err, statuses) ->
+			for status in statuses
+				socket.emit('updateStatus', status)
+		)
+
+	id_strs = []
+	twitter.showUser(ids, (err, users) ->
+		for user in users
+			id_strs.push(user.id_str)
+		streamingStatuses()
+	)
+
+	streamingStatuses = () ->
+		twitter.stream('statuses/filter', {follow: id_strs.join()}, (stream) ->
+			stream.on('data', (status) ->
+				socket.emit('updateStatus', status)
+			)
+		)
+
+
 
