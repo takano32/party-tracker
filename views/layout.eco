@@ -2,6 +2,9 @@
   <html>
     <head>
       <title>Party Tracker</title>
+      <script src="/javascripts/jquery.js"></script>
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="/javascripts/party-tracker.js"></script>
       <body>
         <h1>Party Tracker</h1>
         <%- @body %>

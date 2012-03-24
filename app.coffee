@@ -1,6 +1,7 @@
 #! /usr/bin/env coffee
 # ntwitter http://d.hatena.ne.jp/replication/20120318/1332044327
 # eco http://thechangelog.com/post/1174993103/eco-embedded-coffeescript-templates
+
 config = require './config'
 express = require 'express'
 coffee = require 'coffee-script'
