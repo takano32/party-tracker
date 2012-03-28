@@ -39,7 +39,3 @@ compareDate = (a, b) ->
 	bd = new Date(b.created_at)
 	return ad - bd
 
-
-window.socket = socket
-
-
