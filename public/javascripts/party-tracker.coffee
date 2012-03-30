@@ -32,7 +32,9 @@ socket.on 'streamingUpdateStatus', (status) ->
 prependStatus = (status) ->
 	name = status.user.screen_name
 	text = status.text
-	$('#timeline').prepend($('<li>').text("#{name}: #{text}"))
+	tweet = "#{name}: #{text}"
+	console.log tweet
+	$('#timeline').prepend($('<li>').text(tweet))
 
 compareDate = (a, b) ->
 	ad = new Date(a.created_at)
