@@ -35,13 +35,13 @@ sendStatuses = (socket) ->
 	for id, account of config.accounts
 		ids.push(account.twitter)
 
-	###
 	for id in ids
-		twitter.getUserTimeline({id: id}, (err, statuses) ->
-			console.log err
+		params = {id: id}
+		handler = (err, statuses) ->
+			if err != null
+				throw err
 			socket.emit('updateStatuses', statuses)
-		)
-	###
+		twitter.getUserTimeline(params, handler)
 
 	id_strs = []
 	twitter.showUser(ids.join() , (err, users) ->
